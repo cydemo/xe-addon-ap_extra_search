@@ -1,0 +1,34 @@
+<query id="getDocumentListWithinComment" action="select">
+    <tables>
+        <table name="documents" alias="documents" />
+        <table name="comments" alias="comments" />
+    </tables>
+    <columns>
+        <column name="documents.document_srl" />
+        <column name="documents.list_order" />
+        <column name="documents.regdate" />
+        <column name="documents.last_update" />
+        <column name="documents.update_order" />
+        <column name="documents.readed_count" />
+        <column name="documents.voted_count" />
+        <column name="documents.blamed_count" />
+        <column name="documents.comment_count" />
+        <column name="documents.trackback_count" />
+        <column name="documents.uploaded_count" />
+        <column name="documents.title" />
+        <column name="documents.category_srl" />
+        <column name="documents.nick_name" />
+        <column name="documents.user_name" />
+        <column name="documents.user_id" />
+        <column name="documents.member_srl" />
+    </columns>
+    <conditions>
+        <condition operation="in" column="documents.module_srl" var="module_srl" filter="number" />
+        <condition operation="notin" column="documents.module_srl" var="exclude_module_srl" filter="number" pipe="and" />
+        <condition operation="equal" column="documents.category_srl" var="category_srl" pipe="and" />
+        <condition operation="equal" column="documents.document_srl" default="comments.document_srl" notnull="notnull" pipe="and" />
+        <condition operation="in" column="documents.member_srl" var="member_srl" filter="number" pipe="and" />
+        <condition operation="in" column="documents.status" var="statusList" pipe="and" />
+        <condition operation="like" column="comments.content" var="s_comment" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

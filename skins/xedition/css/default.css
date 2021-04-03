@@ -1,0 +1,25 @@
+.ap_extra_search {
+	margin: 20px auto 30px;
+	max-width: 768px;
+}
+.ap_extra_search .exForm ul {
+	line-height: 2;
+}
+.ap_extra_search .exForm li {
+	display: inline-block;
+}
+.ap_extra_search .exForm .date {
+	width: 161px;
+}
+.ap_extra_search .regist {
+	margin: 0 auto;
+	display: table;
+}
+.ap_extra_search .regist button:first-child {
+	margin-right: 2px;
+}
+@media screen and (max-width: 533px) {
+	.ap_extra_search .exForm .date {
+		width: 100%;
+	}
+}

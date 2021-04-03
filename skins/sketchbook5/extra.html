@@ -1,0 +1,68 @@
+<load target="./css/default.css" />
+<load target="./js/default.js" />
+
+<form cond="count($extra_keys)" class="ap_extra_search bd_wrt bd_wrt_main clear" action="{getUrl()}" method="get" no-error-return-url="true">
+	<input type="hidden" name="vid" value="{$vid}" />
+	<input type="hidden" name="mid" value="{$mid}" />
+	<input type="hidden" name="category" value="{$category}" />
+	<table class="et_vars exForm bd_tb">
+		<tr cond="$extra_search->basic === 'Y'">
+			<th scope="row">
+				<select name="search_target">
+					<option loop="$search_option => $key, $val" value="{$key}" selected="selected"|cond="$search_target==$key">{$val}</option>
+				</select>
+			</th>
+			<td>
+				<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" class="itx srch_itx text" />
+			</td>
+		</tr>
+		<tr loop="$extra_keys => $key, $val">
+			<th scope="row">{$val->name}</th>
+			<!--@if($extra_search->range_search === 'Y' && in_array($val->eid, array_map('trim', explode(',', $extra_search->range_search_target))))-->
+			<td class="date_range" id="date_range_{$key}" cond="$val->type === 'date'">
+				<input type="hidden" name="extra_vars{$key}" value="{Context::get('extra_vars'.$key)}">
+				<input type="hidden" name="extra_vars{$key}-2" value="{Context::get('extra_vars'.$key.'-2')}">
+				<input type="text" id="extra_vars{$key}" class="date itx" value="" autocomplete="off">
+				<input type="button" value="{$lang->cmd_delete}" class="btn">
+			</td>
+			<td class="data_range" id="data_range_{$key}" data-min="{$val->min}" data-max="{$val->max}" cond="$val->type !== 'date'">
+				<div style="text-align: center;">
+					<input type="hidden" name="extra_vars{$key}" value="{Context::get('extra_vars'.$key)}">
+					<input type="hidden" name="extra_vars{$key}-2" value="{Context::get('extra_vars'.$key.'-2')}">
+					<span id="extra_vars{$key}"></span> ~ <span id="extra_vars{$key}-2"></span>
+				</div>
+				<div id="slider_range_{$key}"></div>
+			</td>
+			<!--@else-->
+			<td cond="$val->type !== 'select'">{$val->getFormHTML()}</td>
+			<td cond="$val->type === 'select' && $extra_search->select2radio === 'N'">
+				<select name="extra_vars{$val->idx}" class="select">
+					{@ $option_list = array_map('trim', explode(',', $val->default));}
+					<option value="">{$val->name}</option>
+					<option loop="$option_list => $v" value="{$v}" selected="selected"|cond="Context::get('extra_vars'.$val->idx) === $v">{$v}</option>
+				</select>
+			</td>
+			<td cond="$val->type === 'select' && $extra_search->select2radio === 'Y'">
+				<ul>
+					{@ $i = 1; $option_list = array_map('trim', explode(',', $val->default));}
+					<li loop="$option_list => $v">
+						<input type="radio" name="extra_vars{$val->idx}" id="extra_vars{$val->idx}-{1000+$i}" value="{$v}" class="radio" checked="checked"|cond="Context::get('extra_vars'.$val->idx) === $v">
+						<label for="extra_vars{$val->idx}-{1000+$i}">{$v}</label>
+						{@ $i++;}
+					</li>
+				</ul>
+			</td>
+			<!--@end-->
+		</tr>
+		<tr cond="$extra_search->signature === 'Y'">
+			<th scope="row">{$lang->signature}</th>
+			<td>
+				<input type="text" name="search_signature" value="{htmlspecialchars($search_signature)}" class="itx srch_itx text" />
+			</td>
+		</tr>
+	</table>
+	<div class="regist">
+		<input type="submit" value="{$lang->cmd_advanced_search}" class="bd_btn blue" />
+		<input type="button" value="{$lang->cmd_reset}" class="bd_btn" />
+	</div>
+</form>

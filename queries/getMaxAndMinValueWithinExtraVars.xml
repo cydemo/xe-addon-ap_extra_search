@@ -1,0 +1,19 @@
+<query id="getMaxAndMinValueWithinExtraVars" action="select">
+    <tables>
+        <table name="documents" />
+        <table name="document_extra_vars" alias="extra_vars" />
+    </tables>
+    <columns>
+        <column name="MAX(extra_vars.value)" alias="max" />
+        <column name="MIN(extra_vars.value)" alias="min" />
+    </columns>
+    <conditions>
+        <condition operation="in" column="documents.module_srl" var="module_srl" filter="number" />
+        <condition operation="in" column="documents.category_srl" var="category_srl" filter="number" pipe="and" />
+        <condition operation="in" column="documents.member_srl" var="member_srl" filter="number" pipe="and" />
+        <condition operation="in" column="documents.status" var="statusList" pipe="and" />
+        <condition operation="equal" column="extra_vars.module_srl" default="documents.module_srl" pipe="and" />
+        <condition operation="equal" column="extra_vars.document_srl" default="documents.document_srl" pipe="and" />
+        <condition operation="equal" column="extra_vars.eid" var="var_eid" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

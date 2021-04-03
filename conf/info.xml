@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title xml:lang="ko">게시판 확장변수 다중검색 애드온</title>
+    <description xml:lang="ko">게시판에서 확장변수를 읽어들여 검색 기능을 확장시켜줍니다.</description>
+    <version>0.4.2</version>
+    <date>2021-04-03</date>
+    <author email_address="cydemo@gmail.com" link="https://www.xetown.com/">
+        <name xml:lang="ko">cydemo</name>
+    </author>
+	
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">1. 작동 방식</title>
+			<var name="type" type="select">
+				<title xml:lang="ko">기본 다중검색 방식</title>
+				<description xml:lang="ko">다중검색의 방식을 결정합니다. 기본값은 교차검색(AND)</description>
+				<options value="and">
+					<title xml:lang="ko">교차검색(AND)</title>
+				</options>
+				<options value="or">
+					<title xml:lang="ko">누적검색(OR)</title>
+				</options>
+			</var>
+			<var name="type_multi" type="select">
+				<title xml:lang="ko">다중선택 변수 검색 방식</title>
+				<description xml:lang="ko">기본 다중검색 방식이 교차검색(AND)이더라도, 다중선택 체크박스 형식의 확장변수는 누적검색(OR)으로 별도 지정할 수 있습니다. 기본값은 누적검색(OR)</description>
+				<options value="or">
+					<title xml:lang="ko">누적검색(OR)</title>
+				</options>
+				<options value="and">
+					<title xml:lang="ko">교차검색(AND)</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">2. 스킨 설정</title>
+			<var name="skin" type="text">
+				<title xml:lang="ko">검색창 스킨</title>
+				<description xml:lang="ko">스킨 폴더의 이름을 지정합니다. 입력하지 않으면 sketchbook5 스킨이 출력됩니다.</description>
+			</var>
+			<var name="position" type="text">
+				<title xml:lang="ko">검색창 삽입 위치</title>
+				<description xml:lang="ko">복수의 클래스(class) 이름을 쉼표(,) 단위로 넣으면, 우선 순위에 따라 검색창 삽입 위치를 탐지합니다.</description>
+			</var>
+			<var name="spot" type="select">
+				<title xml:lang="ko">검색창 삽입 지점</title>
+				<description xml:lang="ko">위에서 지정한 클래스(class) 이름을 가진 태그 요소의 '위' 또는 '아래'에 검색창을 삽입합니다.</description>
+				<options value="above">
+					<title xml:lang="ko">'위'에 삽입</title>
+				</options>
+				<options value="below">
+					<title xml:lang="ko">'아래'에 삽입</title>
+				</options>
+			</var>
+			<var name="select2radio" type="select">
+				<title xml:lang="ko">셀렉트 -> 라디오</title>
+				<description xml:lang="ko">셀렉트 메뉴 형식의 사용자 정의 확장변수를 라디오 버튼 형식으로 출력할 수 있습니다.</description>
+				<options value="N">
+					<title xml:lang="ko">그냥 셀렉트 메뉴로 출력</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">라디오 버튼으로 출력</title>
+				</options>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">3. 추가 옵션</title>
+			<var name="basic" type="select">
+				<title xml:lang="ko">기본 검색 통합</title>
+				<description xml:lang="ko">다중검색에 기본 검색 기능을 포함합니다. 제목+내용, 제목, 내용, 댓글, 닉네임, 태그 등</description>
+				<options value="N">
+					<title xml:lang="ko">포함하지 않음</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">포함함</title>
+				</options>
+			</var>
+			<var name="signature" type="select">
+				<title xml:lang="ko">서명 검색 통합</title>
+				<description xml:lang="ko">다중검색에 회원 서명(프로필) 내용 검색을 포함합니다.</description>
+				<options value="N">
+					<title xml:lang="ko">포함하지 않음</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">포함함</title>
+				</options>
+			</var>
+			<var name="range_search" type="select">
+				<title xml:lang="ko">범위 검색 사용</title>
+				<description xml:lang="ko">사용자 정의된 변수 성격에 따라 범위검색(RANGE) 방식을 적용할 수 있습니다.(단, 다중선택 변수(다중 체크박스 형식)에는 적용이 안 됩니다)</description>
+				<options value="N">
+					<title xml:lang="ko">적용 안 함</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">적용함</title>
+				</options>
+			</var>
+			<var name="range_search_target" type="text">
+				<title xml:lang="ko">범위 검색 변수</title>
+				<description xml:lang="ko">범위검색(RANGE) 방식을 적용할 확장변수의 사용자정의 이름(eid)을 지정합니다.(여러 개의 경우 쉼표(,)로 구분해주세요)</description>
+			</var>
+			<var name="range_search_unit" type="text">
+				<title xml:lang="ko">범위 검색 단위</title>
+				<description xml:lang="ko">범위검색(RANGE) 방식을 적용하고 확장변수 유형이 날짜(date) 형식이 아닌 경우(즉, 일반 데이터 성격일 경우), 슬라이드 바의 커서 이동 단위를 설정할 수 있습니다.(기본 값은 10)</description>
+			</var>
+		</group>
+	</extra_vars>
+</addon>

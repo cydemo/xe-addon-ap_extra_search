@@ -1,0 +1,27 @@
+.ap_extra_search.bd_wrt_main {
+	margin: 20px auto 30px;
+	max-width: 768px;
+	padding: 20px;
+}
+.ap_extra_search.bd_wrt_main .et_vars {
+	padding-top: 12px;
+}
+.ap_extra_search.bd_wrt_main .et_vars th select {
+	margin-left: -5px;
+}
+.ap_extra_search.bd_wrt_main .et_vars li {
+	display: inline-block;
+}
+.ap_extra_search.bd_wrt_main .et_vars .date {
+	width: 161px;
+}
+@media screen and (max-width: 640px) {
+	.ap_extra_search.bd_wrt_main {
+		padding: 12px;
+	}
+}
+@media screen and (max-width: 533px) {
+	.ap_extra_search.bd_wrt_main .et_vars .date {
+		width: 100%;
+	}
+}

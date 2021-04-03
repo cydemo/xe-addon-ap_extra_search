@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<lang>
+	<item name="cmd_advanced_search">
+		<value xml:lang="ko"><![CDATA[상세검색]]></value>
+		<value xml:lang="en"><![CDATA[Advanced Search]]></value>
+	</item>
+	<item name="cmd_reset">
+		<value xml:lang="ko"><![CDATA[초기화]]></value>
+		<value xml:lang="en"><![CDATA[Reset]]></value>
+	</item>
+	<item name="msg_reset">
+		<value xml:lang="ko"><![CDATA[검색 값이 입력되지 않아 목록을 초기화합니다.]]></value>
+		<value xml:lang="en"><![CDATA[The search value is not entered and the list is initialized.]]></value>
+	</item>
+</lang>
