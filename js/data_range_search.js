@@ -4,8 +4,8 @@
 			var oid = $(this).attr('id').replace('data_range_', '');
 			var start_input = $('input[name="extra_vars'+oid+'"]'),
 				end_input = $('input[name="extra_vars'+oid+'-2"]');
-			var start_val = start_input.val(),
-				end_val = end_input.val();
+			var start_val = start_input.val().replace(/[^0-9]/g, ''),
+				end_val = end_input.val().replace(/[^0-9]/g, '');
 			var min = $(this).data('min'),
 				max = $(this).data('max');
 			var bar = $('#slider_range_'+oid);
