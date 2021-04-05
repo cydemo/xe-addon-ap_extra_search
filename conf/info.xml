@@ -3,7 +3,7 @@
     <title xml:lang="ko">게시판 확장변수 다중검색 애드온</title>
     <description xml:lang="ko">게시판에서 확장변수를 읽어들여 검색 기능을 확장시켜줍니다.</description>
     <version>0.4.3</version>
-    <date>2021-04-04</date>
+    <date>2021-04-05</date>
     <author email_address="cydemo@gmail.com" link="https://www.xetown.com/">
         <name xml:lang="ko">cydemo</name>
     </author>
