@@ -2,8 +2,8 @@
 <addon version="0.2">
     <title xml:lang="ko">게시판 확장변수 다중검색 애드온</title>
     <description xml:lang="ko">게시판에서 확장변수를 읽어들여 검색 기능을 확장시켜줍니다.</description>
-    <version>0.4.3</version>
-    <date>2021-04-05</date>
+    <version>0.5.1</version>
+    <date>2022-04-19</date>
     <author email_address="cydemo@gmail.com" link="https://www.xetown.com/">
         <name xml:lang="ko">cydemo</name>
     </author>
@@ -65,6 +65,19 @@
 		</group>
 		<group>
 			<title xml:lang="ko">3. 추가 옵션</title>
+			<var name="category" type="select">
+				<title xml:lang="ko">분류 선택 통합</title>
+				<description xml:lang="ko">다중검색에 분류 선택 기능을 포함합니다. 복수의 카테고리(분류)를 선택할 수 있습니다.</description>
+				<options value="N">
+					<title xml:lang="ko">포함하지 않음</title>
+				</options>
+				<options value="S">
+					<title xml:lang="ko">포함함(단일 선택)</title>
+				</options>
+				<options value="M">
+					<title xml:lang="ko">포함함(중복 선택)</title>
+				</options>
+			</var>
 			<var name="basic" type="select">
 				<title xml:lang="ko">기본 검색 통합</title>
 				<description xml:lang="ko">다중검색에 기본 검색 기능을 포함합니다. 제목+내용, 제목, 내용, 댓글, 닉네임, 태그 등</description>

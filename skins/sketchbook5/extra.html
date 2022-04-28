@@ -4,8 +4,31 @@
 <form cond="count($extra_keys)" class="ap_extra_search bd_wrt bd_wrt_main clear" action="{getUrl()}" method="get" no-error-return-url="true">
 	<input type="hidden" name="vid" value="{$vid}" />
 	<input type="hidden" name="mid" value="{$mid}" />
-	<input type="hidden" name="category" value="{$category}" />
+	<input type="hidden" name="category" value="{$category}" cond="$extra_search->category === 'N'" />
 	<table class="et_vars exForm bd_tb">
+		<tr cond="$extra_search->category !== 'N'">
+		{@ $cate_list = array(); $current_key = null; }
+		<!--@foreach($category_list as $key=>$val)-->
+			<!--@if(!$val->depth)-->
+				{@
+					$cate_list[$key] = $val;
+					$cate_list[$key]->children = array();
+					$current_key = $key;
+				}
+			<!--@elseif($current_key)-->
+				{@ $cate_list[$current_key]->children[] = $val }
+			<!--@end-->
+		<!--@end-->
+			<th scope="row">{$lang->category}</th>
+			<td>
+				<ul cond="$extra_search->category === 'S'">
+					<li loop="$cate_list=>$key,$val"><input type="radio" name="category_srls[]" id="category_srl-{$key}" value="{$val->category_srl}" class="radio" checked|cond="isset($category_srls) && in_array($val->category_srl, $category_srls)"><label for="category_srl-{$key}">{$val->title}</label></li>
+				</ul>
+				<ul cond="$extra_search->category === 'M'">
+					<li loop="$cate_list=>$key,$val"><input type="checkbox" name="category_srls[]" id="category_srl-{$key}" value="{$val->category_srl}" checked|cond="isset($category_srls) && in_array($val->category_srl, $category_srls)"><label for="category_srl-{$key}">{$val->title}</label></li>
+				</ul>
+			</td>
+		</tr>
 		<tr cond="$extra_search->basic === 'Y'">
 			<th scope="row">
 				<select name="search_target">

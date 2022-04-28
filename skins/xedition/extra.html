@@ -6,6 +6,17 @@
 	<input type="hidden" name="mid" value="{$mid}" />
 	<input type="hidden" name="category" value="{$category}" />
 	<table class="et_vars exForm bd_tb" cellspacing="0" summary="Extra Form">
+		<tr cond="$extra_search->category !== 'N'">
+			<th scope="row">{$lang->category}</th>
+			<td>
+				<ul cond="$extra_search->category === 'S'">
+					<li loop="$cate_list=>$key,$val"><input type="radio" name="category_srl[]" id="category_srl-{$key}" value="{$val->category_srl}" class="radio" checked|cond="isset($category_srl) && in_array($val->category_srl, $category_srl)"><label for="category_srl-{$key}">{$val->title}</label></li>
+				</ul>
+				<ul cond="$extra_search->category === 'M'">
+					<li loop="$cate_list=>$key,$val"><input type="checkbox" name="category_srl[]" id="category_srl-{$key}" value="{$val->category_srl}" checked|cond="isset($category_srl) && in_array($val->category_srl, $category_srl)"><label for="category_srl-{$key}">{$val->title}</label></li>
+				</ul>
+			</td>
+		</tr>
 		<tr cond="$extra_search->basic === 'Y'">
 			<th scope="row">
 				<select name="search_target">

@@ -4,8 +4,8 @@
         <table name="document_extra_vars" alias="extra_vars" />
     </tables>
     <columns>
-        <column name="MAX(CAST(extra_vars.value as signed))" alias="max" />
-        <column name="MIN(CAST(extra_vars.value as signed))" alias="min" />
+        <column name="MAX(CAST(extra_vars.value as SIGNED))" alias="max" />
+        <column name="MIN(CAST(extra_vars.value as SIGNED))" alias="min" />
     </columns>
     <conditions>
         <condition operation="in" column="documents.module_srl" var="module_srl" filter="number" />

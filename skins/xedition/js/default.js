@@ -35,6 +35,12 @@ jQuery(document).ready(function($) {
 		{
 			check = true;
 		}
+		S.find('[name*="category_srl"]').each(function() {
+			if ( $(this).attr('checked') )
+			{
+				check = true;
+			}
+		});
 		S.find('[name*="extra_vars"]').each(function() {
 			var type = $(this).attr('type');
 			if ( type === 'radio' || type === 'checkbox' )
