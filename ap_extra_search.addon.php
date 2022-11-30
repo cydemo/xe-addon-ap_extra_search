@@ -119,12 +119,15 @@ if ( $called_position === 'before_module_proc' && $this->module === 'board' && $
 		// 현재 모듈에 사용자정의된 확장변수가 있을 때만 실행
 		if ( count($_extra_keys) )
 		{
+			$eids = [];
 			$is_range_date = false;
 			$is_range_data = false;
 
 			// 확장변수 다중검색 기본 설정
 			foreach ( $_extra_keys as $key => $val )
 			{
+				$eids[] = $val->eid;
+
 				// 검색 불가 확장변수면 통과
 				if ( $val->search !== 'Y' )
 				{
@@ -442,7 +445,18 @@ if ( $called_position === 'before_module_proc' && $this->module === 'board' && $
 		Context::set('extra_keys', $extra_keys);
 
 		// total_count 구하기
-		$query = 'SELECT COUNT(document_srl) AS count FROM ' . $tables . ' WHERE ' . $conditions;
+		if ( in_array($obj->sort_index, $eids) )
+		{
+			$_tables = $tables . ', document_extra_vars AS extra_sort';
+			$conditions = $conditions . ' AND extra_sort.eid = ? AND extra_sort.lang_code = ? AND documents.document_srl = extra_sort.document_srl';
+				$cond_args[] = $obj->sort_index;
+				$cond_args[] = Context::getLangType();
+			$query = 'SELECT DISTINCT COUNT(documents.document_srl) AS count FROM ' . $_tables . ' WHERE ' . $conditions;
+		}
+		else
+		{
+			$query = 'SELECT COUNT(document_srl) AS count FROM ' . $tables . ' WHERE ' . $conditions;
+		}
 		$oDB = DB::getInstance();
 		$stmt = $oDB->query($query, $cond_args);
 		$result = $stmt->fetchAll();
@@ -523,12 +537,23 @@ if ( $called_position === 'before_module_proc' && $this->module === 'board' && $
 		$page_navigation = new PageHandler($total_count, $total_page, $page, $args->page_count);
 		Context::set('page_navigation', $page_navigation);
 
-		// 쿼리의 네비게이션
-		$navigation = ' ORDER BY ' . $args->sort_index . ' '. strtoupper($args->order_type) .' LIMIT ?, ?';
+		// 쿼리 실행
+		if ( in_array($obj->sort_index, $eids) )
+		{
+			$columns = 'DISTINCT ' . $columns . ',extra_sort.value';
+			$tables = $tables . ', document_extra_vars AS extra_vars, document_extra_vars AS extra_sort';
+			$conditions .= ' AND documents.document_srl = extra_vars.document_srl AND extra_sort.eid = ? AND extra_sort.lang_code = ? AND documents.document_srl = extra_sort.document_srl';
+				$cond_args[] = $obj->sort_index;
+				$cond_args[] = Context::getLangType();
+			$navigation = ' ORDER BY extra_sort.value ' . strtoupper($args->order_type) .' LIMIT ?, ?';
+		}
+		else
+		{
+			$navigation = ' ORDER BY ' . $args->sort_index . ' '. strtoupper($args->order_type) .' LIMIT ?, ?';
+		}
 		$cond_args[] = $args->list_count * ($page - 1);
 		$cond_args[] = $args->list_count;
 
-		// 쿼리 실행
 		$query = 'SELECT ' . $columns . ' FROM ' . $tables . ' WHERE ' . $conditions . $navigation;
 		$oDB = DB::getInstance();
 		$stmt = $oDB->query($query, $cond_args);
