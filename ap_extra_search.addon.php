@@ -201,6 +201,11 @@ if ( $called_position === 'before_module_proc' && $this->module === 'board' && $
 			$conditions .= ')';
 			$cond_args = [...$cond_args, ...$args->category_srl];
 		}
+		if ( $args->s_is_notice === 'N' )
+		{
+			$conditions .= ' AND documents.is_notice = ?';
+			$cond_args[] = $args->s_is_notice;
+		}
 
 
 		// 1. 애드온이 게시판 기본검색까지도 다중검색에 포함하는 경우
